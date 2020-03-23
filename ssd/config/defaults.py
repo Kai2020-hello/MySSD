@@ -91,3 +91,6 @@ _C.TEST.MAX_PER_IMAGE = 100
 _C.TEST.BATCH_SIZE = 10
 
 _C.OUTPUT_DIR = 'outputs'
+
+
+config = _C
