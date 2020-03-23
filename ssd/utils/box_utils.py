@@ -1,6 +1,7 @@
 import torch
 import math 
 
+#把模型输出格式转化成 center 格式边框
 def convert_locations_to_boxes(locations, priors, center_variance,size_variance):
     '''
         转换 ssd 位置回归结果 格式是 (center_x,center_y,h,w)
@@ -19,6 +20,17 @@ def convert_locations_to_boxes(locations, priors, center_variance,size_variance)
         locations[...,:2] * center_variance * priors[...,2:] + priors[...,:2],
         torch.exp(locations[...,2:] * size_variance * priors[...,:2])
     ], dim=locations.dim() - 1)
+
+# 把边框转换成 模型输出格式
+def convert_boxes_to_locations(center_form_boxes, center_form_priors, center_variance, size_variance):
+    # priors can have one dimension less
+    if center_form_priors.dim() + 1 == center_form_boxes.dim():
+        center_form_priors = center_form_priors.unsqueeze(0)
+    return torch.cat([
+        (center_form_boxes[..., :2] - center_form_priors[..., :2]) / center_form_priors[..., 2:] / center_variance,
+        torch.log(center_form_boxes[..., 2:] / center_form_priors[..., 2:]) / size_variance
+    ], dim=center_form_boxes.dim() - 1)
+
 
 # 中心点格式 转化成 角点格式
 def center_form_to_corner_form(locations):
