@@ -4,6 +4,7 @@ _C = CN()
 
 _C.MODEL = CN()
 _C.MODEL.DEVICE = "cuda"
+_C.MODEL.THRESHOLD = 0.5
 _C.MODEL.NUM_CLASSES =  81 # 分类数量
 # Hard negative mining
 _C.MODEL.NEG_POS_RATIO = 3 #  负样本正样本比例
@@ -53,9 +54,9 @@ _C.INPUT.PIXEL_MEAN = [123, 117, 104]
 # -----------------------------------------------------------------------------
 _C.DATASETS = CN()
 # List of the dataset names for training, as present in paths_catalog.py
-_C.DATASETS.TRAIN = ()
+_C.DATASETS.TRAIN = ("coco_2014_train",)
 # List of the dataset names for testing, as present in paths_catalog.py
-_C.DATASETS.TEST = ()
+_C.DATASETS.TEST =  ("coco_2014_minival", )
 
 # -----------------------------------------------------------------------------
 # DataLoader

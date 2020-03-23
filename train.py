@@ -1,6 +1,6 @@
 from ssd.modeling.detector.ssd_detector  import SSDDetector
 from ssd.data.build import make_data_loader
-from ssd.config.defaults.config as cfg
+from ssd.config.defaults import config as cfg
 
 
 
@@ -15,6 +15,8 @@ def train():
 
 
 def main():
+    train()
+
     
 
 
